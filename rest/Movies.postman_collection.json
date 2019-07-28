@@ -1,0 +1,920 @@
+{
+	"info": {
+		"_postman_id": "61391489-1b4f-4a61-a68e-c2f39f991a5c",
+		"name": "Movies",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Movies",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{APIUrl}}/movies",
+					"host": [
+						"{{APIUrl}}"
+					],
+					"path": [
+						"movies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Movies create",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "85f95be6-b5ba-4997-8b76-f7318af46568",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () { pm.response.to.have.status(201); });",
+							"pm.test(\"Movie created with name Interstellar\", function () {",
+							"    var jsonData = JSON.parse(responseBody);",
+							"    pm.expect(jsonData.title).to.equal(\"Interstellar\")",
+							"    postman.setEnvironmentVariable(\"MovieId\", jsonData.id);    ",
+							"})",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"Interstellar\",\n    \"year\": 2014,\n    \"plot\": null,\n    \"duration\": null,\n    \"audio_qualities\": [\n        {\n            \"id\": 5,\n            \"name\": \"Unbelievable 7.1\",\n            \"abbr\": \"7.1\",\n            \"position\": null,\n            \"default\": false\n        }\n    ],\n    \"video_qualities\": [\n        {\n            \"id\": 3,\n            \"name\": \"FHD\",\n            \"abbr\": \"fhd\",\n            \"position\": null,\n            \"default\": false\n        }\n    ],\n    \"genres\": [\n        {\n            \"id\": 1,\n            \"name\": \"acción\"\n        },\n        {\n            \"id\": 2,\n            \"name\": \"terror\"\n        }\n    ]\n}"
+				},
+				"url": {
+					"raw": "{{APIUrl}}/movies",
+					"host": [
+						"{{APIUrl}}"
+					],
+					"path": [
+						"movies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Movie exist test",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "dcec63c7-bf7a-4a09-b8cb-e52ed057a573",
+						"exec": [
+							"pm.test(\"Movie exist with name Interstellar\", function () {",
+							"    var jsonData = JSON.parse(responseBody);",
+							"    pm.expect(jsonData.title).to.equal(\"Interstellar\")",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{APIUrl}}/movies/{{MovieId}}",
+					"host": [
+						"{{APIUrl}}"
+					],
+					"path": [
+						"movies",
+						"{{MovieId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Movie update",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n \"duration\": 169\n}"
+				},
+				"url": {
+					"raw": "{{APIUrl}}/movies/{{MovieId}}",
+					"host": [
+						"{{APIUrl}}"
+					],
+					"path": [
+						"movies",
+						"{{MovieId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Movie updated test",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "dcec63c7-bf7a-4a09-b8cb-e52ed057a573",
+						"exec": [
+							"pm.test(\"Movie Updated with name Interstellar\", function () {",
+							"    var jsonData = JSON.parse(responseBody);",
+							"    pm.expect(jsonData.duration).to.equal(169)",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{APIUrl}}/movies/{{MovieId}}",
+					"host": [
+						"{{APIUrl}}"
+					],
+					"path": [
+						"movies",
+						"{{MovieId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Movie delete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{APIUrl}}/movies/{{MovieId}}",
+					"host": [
+						"{{APIUrl}}"
+					],
+					"path": [
+						"movies",
+						"{{MovieId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Movie deleted test",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "dcec63c7-bf7a-4a09-b8cb-e52ed057a573",
+						"exec": [
+							"pm.test(\"Movie deleted\", function () {",
+							"    var jsonData = JSON.parse(responseBody);",
+							"    pm.expect(jsonData.message).to.equal(\"Couldn't find Movie with 'id'=\" + postman.getEnvironmentVariable(\"MovieId\"))",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{APIUrl}}/movies/{{MovieId}}",
+					"host": [
+						"{{APIUrl}}"
+					],
+					"path": [
+						"movies",
+						"{{MovieId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Video Qualities",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{APIUrl}}/video_qualities",
+					"host": [
+						"{{APIUrl}}"
+					],
+					"path": [
+						"video_qualities"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Video quality create",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b3be9360-fe46-4877-b90a-ce2ba8c7397f",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () { pm.response.to.have.status(201); });",
+							"pm.test(\"Video qualitie created\", function () {",
+							"    var jsonData = JSON.parse(responseBody);",
+							"    pm.expect(jsonData.name).to.equal(\"LOW\")",
+							"    postman.setEnvironmentVariable(\"VideoQualId\", jsonData.id);    ",
+							"})",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"LOW\",\n    \"abbr\": \"low\",\n    \"position\": null,\n    \"default\": false\n}"
+				},
+				"url": {
+					"raw": "{{APIUrl}}/video_qualities",
+					"host": [
+						"{{APIUrl}}"
+					],
+					"path": [
+						"video_qualities"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Video quality exist test",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "dcec63c7-bf7a-4a09-b8cb-e52ed057a573",
+						"exec": [
+							"pm.test(\"Video quality exist with name LOW\", function () {",
+							"    var jsonData = JSON.parse(responseBody);",
+							"    pm.expect(jsonData.name).to.equal(\"LOW\")",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{APIUrl}}/video_qualities/{{VideoQualId}}",
+					"host": [
+						"{{APIUrl}}"
+					],
+					"path": [
+						"video_qualities",
+						"{{VideoQualId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Video quality update",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"LOW\",\n    \"abbr\": \"lo\",\n    \"position\": null,\n    \"default\": false\n}"
+				},
+				"url": {
+					"raw": "{{APIUrl}}/video_qualities/{{VideoQualId}}",
+					"host": [
+						"{{APIUrl}}"
+					],
+					"path": [
+						"video_qualities",
+						"{{VideoQualId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Video quality updated test",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "dcec63c7-bf7a-4a09-b8cb-e52ed057a573",
+						"exec": [
+							"pm.test(\"Video quality updated\", function () {",
+							"    var jsonData = JSON.parse(responseBody);",
+							"    pm.expect(jsonData.abbr).to.equal(\"lo\")",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{APIUrl}}/video_qualities/{{VideoQualId}}",
+					"host": [
+						"{{APIUrl}}"
+					],
+					"path": [
+						"video_qualities",
+						"{{VideoQualId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Video quality delete",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{APIUrl}}/video_qualities/{{VideoQualId}}",
+					"host": [
+						"{{APIUrl}}"
+					],
+					"path": [
+						"video_qualities",
+						"{{VideoQualId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Video quality deleted test",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "dcec63c7-bf7a-4a09-b8cb-e52ed057a573",
+						"exec": [
+							"pm.test(\"Video Quality deleted\", function () {",
+							"    var jsonData = JSON.parse(responseBody);",
+							"    pm.expect(jsonData.message).to.equal(\"Couldn't find VideoQuality with 'id'=\" + postman.getEnvironmentVariable(\"VideoQualId\"))",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{APIUrl}}/video_qualities/{{VideoQualId}}",
+					"host": [
+						"{{APIUrl}}"
+					],
+					"path": [
+						"video_qualities",
+						"{{VideoQualId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Genres",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{APIUrl}}/genres",
+					"host": [
+						"{{APIUrl}}"
+					],
+					"path": [
+						"genres"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Genre create",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b3be9360-fe46-4877-b90a-ce2ba8c7397f",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () { pm.response.to.have.status(201); });",
+							"pm.test(\"Genre created\", function () {",
+							"    var jsonData = JSON.parse(responseBody);",
+							"    pm.expect(jsonData.name).to.equal(\"Drama\")",
+							"    postman.setEnvironmentVariable(\"GenreId\", jsonData.id);    ",
+							"})",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Drama\"\n}"
+				},
+				"url": {
+					"raw": "{{APIUrl}}/genres",
+					"host": [
+						"{{APIUrl}}"
+					],
+					"path": [
+						"genres"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Genre exist test",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "dcec63c7-bf7a-4a09-b8cb-e52ed057a573",
+						"exec": [
+							"pm.test(\"Genre exist with name Drama\", function () {",
+							"    var jsonData = JSON.parse(responseBody);",
+							"    pm.expect(jsonData.name).to.equal(\"Drama\")",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{APIUrl}}/genres/{{GenreId}}",
+					"host": [
+						"{{APIUrl}}"
+					],
+					"path": [
+						"genres",
+						"{{GenreId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Genre update",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Phantasy\"\n}"
+				},
+				"url": {
+					"raw": "{{APIUrl}}/genres/{{GenreId}}",
+					"host": [
+						"{{APIUrl}}"
+					],
+					"path": [
+						"genres",
+						"{{GenreId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Genre updated test",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "dcec63c7-bf7a-4a09-b8cb-e52ed057a573",
+						"exec": [
+							"pm.test(\"Genre name changed to Phantasy\", function () {",
+							"    var jsonData = JSON.parse(responseBody);",
+							"    pm.expect(jsonData.name).to.equal(\"Phantasy\")",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{APIUrl}}/genres/{{GenreId}}",
+					"host": [
+						"{{APIUrl}}"
+					],
+					"path": [
+						"genres",
+						"{{GenreId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Genre delete",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{APIUrl}}/genres/{{GenreId}}",
+					"host": [
+						"{{APIUrl}}"
+					],
+					"path": [
+						"genres",
+						"{{GenreId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Genre deleted test",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "dcec63c7-bf7a-4a09-b8cb-e52ed057a573",
+						"exec": [
+							"pm.test(\"Genre deleted\", function () {",
+							"    var jsonData = JSON.parse(responseBody);",
+							"    pm.expect(jsonData.message).to.equal(\"Couldn't find Genre with 'id'=\" + postman.getEnvironmentVariable(\"GenreId\"))",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{APIUrl}}/genres/{{GenreId}}",
+					"host": [
+						"{{APIUrl}}"
+					],
+					"path": [
+						"genres",
+						"{{GenreId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Audio Qualities",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{APIUrl}}/audio_qualities",
+					"host": [
+						"{{APIUrl}}"
+					],
+					"path": [
+						"audio_qualities"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Audio quality create",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b3be9360-fe46-4877-b90a-ce2ba8c7397f",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () { pm.response.to.have.status(201); });",
+							"pm.test(\"Audio qualitie created\", function () {",
+							"    var jsonData = JSON.parse(responseBody);",
+							"    pm.expect(jsonData.name).to.equal(\"Normal\")",
+							"    postman.setEnvironmentVariable(\"AudioQualId\", jsonData.id);    ",
+							"})",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Normal\",\n    \"abbr\": \"Norm\",\n    \"position\": null,\n    \"default\": false\n}"
+				},
+				"url": {
+					"raw": "{{APIUrl}}/audio_qualities",
+					"host": [
+						"{{APIUrl}}"
+					],
+					"path": [
+						"audio_qualities"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Audio quality exist test",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "dcec63c7-bf7a-4a09-b8cb-e52ed057a573",
+						"exec": [
+							"pm.test(\"Audio quality exist with name Noramal\", function () {",
+							"    var jsonData = JSON.parse(responseBody);",
+							"    pm.expect(jsonData.name).to.equal(\"Normal\")",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{APIUrl}}/audio_qualities/{{AudioQualId}}",
+					"host": [
+						"{{APIUrl}}"
+					],
+					"path": [
+						"audio_qualities",
+						"{{AudioQualId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Audio quality update",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Normal\",\n    \"abbr\": \"N\",\n    \"position\": null,\n    \"default\": false\n}"
+				},
+				"url": {
+					"raw": "{{APIUrl}}/audio_qualities/{{AudioQualId}}",
+					"host": [
+						"{{APIUrl}}"
+					],
+					"path": [
+						"audio_qualities",
+						"{{AudioQualId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Audio quality updated test",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "dcec63c7-bf7a-4a09-b8cb-e52ed057a573",
+						"exec": [
+							"pm.test(\"Audio quality updated\", function () {",
+							"    var jsonData = JSON.parse(responseBody);",
+							"    pm.expect(jsonData.abbr).to.equal(\"N\")",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{APIUrl}}/audio_qualities/{{AudioQualId}}",
+					"host": [
+						"{{APIUrl}}"
+					],
+					"path": [
+						"audio_qualities",
+						"{{AudioQualId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Audio quality delete",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{APIUrl}}/audio_qualities/{{AudioQualId}}",
+					"host": [
+						"{{APIUrl}}"
+					],
+					"path": [
+						"audio_qualities",
+						"{{AudioQualId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Audio Quality deleted test",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "dcec63c7-bf7a-4a09-b8cb-e52ed057a573",
+						"exec": [
+							"pm.test(\"Audio quality deleted\", function () {",
+							"    var jsonData = JSON.parse(responseBody);",
+							"    pm.expect(jsonData.message).to.equal(\"Couldn't find AudioQuality with 'id'=\" + postman.getEnvironmentVariable(\"AudioQualId\"))",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{APIUrl}}/audio_qualities/{{AudioQualId}}",
+					"host": [
+						"{{APIUrl}}"
+					],
+					"path": [
+						"audio_qualities",
+						"{{AudioQualId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "aa862224-4f29-4181-9c51-0f491a2ac977",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "d3ab1c1e-765c-4264-a1e9-001e16200680",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "dab979e9-ff0b-460b-b86f-8caa5aa9fb34",
+			"key": "APIUrl",
+			"value": "https://protected-atoll-83840.herokuapp.com",
+			"type": "string"
+		},
+		{
+			"id": "bc45cddd-9a0d-4786-94a0-78250289290e",
+			"key": "MovieId",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "8d6847a6-8c8e-41fb-aafd-e236de72c2c0",
+			"key": "VideoQualId",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "48e51da9-47b6-49bc-b751-8213e4a4928c",
+			"key": "AudioQualId",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "afdf07c5-d7d7-4e16-a1b4-6889eef2a0b6",
+			"key": "GenreId",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
