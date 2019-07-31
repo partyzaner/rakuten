@@ -23,7 +23,7 @@
 			"response": []
 		},
 		{
-			"name": "Movies create",
+			"name": "Movie create",
 			"event": [
 				{
 					"listen": "test",
@@ -54,7 +54,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"title\": \"Interstellar\",\n    \"year\": 2014,\n    \"plot\": null,\n    \"duration\": null,\n    \"audio_qualities\": [\n        {\n            \"id\": 5,\n            \"name\": \"Unbelievable 7.1\",\n            \"abbr\": \"7.1\",\n            \"position\": null,\n            \"default\": false\n        }\n    ],\n    \"video_qualities\": [\n        {\n            \"id\": 3,\n            \"name\": \"FHD\",\n            \"abbr\": \"fhd\",\n            \"position\": null,\n            \"default\": false\n        }\n    ],\n    \"genres\": [\n        {\n            \"id\": 1,\n            \"name\": \"acción\"\n        },\n        {\n            \"id\": 2,\n            \"name\": \"terror\"\n        }\n    ]\n}"
+					"raw": "{\n    \"title\": \"Interstellar\",\n    \"year\": 2014,\n    \"plot\": null,\n    \"duration\": null,\n    \"audio_quality_ids\": [3,4,5],\n    \"video_quality_ids\": [3],\n    \"genre_ids\": [1,2]\n}"
 				},
 				"url": {
 					"raw": "{{APIUrl}}/movies",
@@ -887,31 +887,31 @@
 	],
 	"variable": [
 		{
-			"id": "dab979e9-ff0b-460b-b86f-8caa5aa9fb34",
+			"id": "5156dc1a-95bf-4e38-a9b0-cd23b7ba05f9",
 			"key": "APIUrl",
 			"value": "https://protected-atoll-83840.herokuapp.com",
 			"type": "string"
 		},
 		{
-			"id": "bc45cddd-9a0d-4786-94a0-78250289290e",
+			"id": "4948ae6b-6c0e-476b-87ea-c56f25fc6cfa",
 			"key": "MovieId",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "8d6847a6-8c8e-41fb-aafd-e236de72c2c0",
+			"id": "fb7813e5-19f6-43b7-a3ea-d8c1bb4489c9",
 			"key": "VideoQualId",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "48e51da9-47b6-49bc-b751-8213e4a4928c",
+			"id": "6d957510-76c1-480e-a3f6-b541c7fac790",
 			"key": "AudioQualId",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "afdf07c5-d7d7-4e16-a1b4-6889eef2a0b6",
+			"id": "a94851fc-7987-4da7-bbe4-b702fdfd5b8b",
 			"key": "GenreId",
 			"value": "",
 			"type": "string"
